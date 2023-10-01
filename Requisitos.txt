@@ -1,0 +1,81 @@
+Requisitos Funcionais:  // Funcionalidades do sistema
+
+	-Agenda,
+	-Estoque,
+	-Financeiro,
+	-Relatorios,
+	-Opções (Cadastros em geral ex: Fornecedores , Pacientes).
+
+Requisitos não funcionais:  // oq precisamos para que seja feito os RF
+	
+	-Sistema de login: e-mail e senha:
+		-Validaçao dos campos,
+		-A autenticação de usuários será feita por webtokens(JWT) que serão armazenados no lado do cliente.
+
+	-Cadastro de cliente:
+		-Necessário id, nome, e-mail, telefone, cpf, endereço.
+		-Campo de informações adicionais (Ex: restrições do paciente).
+		-Validação do campo telefone no cadastro do cliente (Obrigatório).
+		-Validar email.
+
+	-Sistema de cadastro de um novo colaborador:
+		-Necessario nome, cargo, data de admissão, cpf, senha, e-mail, tipo de acesso(Geral, Consulta).
+		-Necessário ter um usuário inicial com acesso Geral.
+
+	-Sistema de comunicação via Whatsapp entre sistema e paciente:
+		-Utilização do wpp conect.
+		-Usar o NodeJs.
+		-Ter repositório próprio no Git.
+
+	-Estoque:
+		-Registro de movimentações.
+		-Listagem de itens, possibilidade de pesquisar
+
+	-Financeiro:
+		-Cadastro de conta bancária,
+		-Caixa,
+		-Baixas a receber de acordo com as movimentações das consultas,
+		-Baixas a pagar de acordo com as movimentações do estoque,
+
+	-Relatório
+		-Data de início e fim,
+		-Filtro de relatório, define o tipo de relatório(financeiro, estoque etc..)
+
+
+Tecnologias:
+	Back-end:
+		-JavaScript,
+		-SGBD: MySql,
+		-Php,
+		-REST API.
+		
+	Front-end:
+		-HTMl,
+		-CSS,
+		-JavaScript,
+		-Bootstrap.
+
+Classes do Sistema:
+	(terão a função apenas de modelar e guardar os dados)
+	-Usuário,
+	-Cliente,
+	-Agendamento,
+	-Relatório,
+	-Conta( financeira),
+	-ItemEstoque,
+	-Login( responsável pela autenticação),
+	-Exception
+
+Arquitetura do Sistema:
+	-Backend como uma API REST,
+	-Usar requisições assíncronas no Frontend através do JavaScript,
+	-Usar controllers e models no Backend
+
+Ferramentas:
+	-Trello,
+	-GitHub,
+	-WhatsApp,
+	-Xampp,
+	-Discord.
+				
+			
