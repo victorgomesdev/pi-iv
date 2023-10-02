@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class Movimentacao{
+class Transacao{
 
     public function __construct()
     {
