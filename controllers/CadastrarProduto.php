@@ -2,15 +2,17 @@
 
 use Models\Item;
 use Models\Resposta;
+use Models\Transacao;
 
 class CadastrarProduto{
 
-    public static function cadastrar(string $descricao){
+    public static function cadastrar(int $id, string $descricao, int $categoria, int $tipo, int $usuario, int $clinica){
 
-        $item = new Item(1, $descricao, 1);
+        $cadastro = new Transacao(1, $tipo, date('dd-mm-YY'), $usuario, $clinica);
+        $item = new Item($id, $descricao, $categoria, 1);
 
-        if($item->cadastrar_item()){
-            Resposta::enviar(200, ['Produto cadastrado!']);
+        if($cadastro->registar()){
+            $item->cadastrar_item()? Resposta::enviar(200,[]): Resposta::enviar(400,[]);
         }else{
             
         }

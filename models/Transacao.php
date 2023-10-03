@@ -30,6 +30,7 @@ class Transacao
             $conn = null;
             return true;
         } catch (PDOException $err) {
+            $conn = null;
             return false;
         }
     }

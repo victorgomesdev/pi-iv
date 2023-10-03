@@ -7,22 +7,23 @@ use PDOException;
 class Item
 {
 
-    public function __construct(private int $id_produto, private string $descricao, private int $id_categoria)
+    public function __construct(private int $id_produto, private string $descricao, private int $id_categoria, private int $transcao)
     {
         $this->id_produto = $id_produto;
         $this->id_categoria = $id_categoria;
         $this->descricao = $descricao;
+        $this->transcao = $transcao;
     }
 
     public function cadastrar_item(): bool
     {
         try {
-            $query = 'INSERT INTO itens(id_produto, descricao, id_categoria) VALUES (:id, :descricao, :id_categoria);';
+            $query = 'INSERT INTO itens(id_produto, descricao, id_categoria, transacao) VALUES (:id, :descricao, :id_categoria, :transacao);';
 
             $conn = Conexao::conectar();
 
             $req = $conn->prepare($query);
-            $req->execute(array('id' => $this->id_produto, 'descricao' => $this->descricao, 'id_categoria' => $this->id_categoria));
+            $req->execute(array('id' => $this->id_produto, 'descricao' => $this->descricao, 'id_categoria' => $this->id_categoria, 'transacao'=> $this->transcao));
 
             $conn = null;
             return true;
