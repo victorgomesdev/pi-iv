@@ -23,7 +23,7 @@ class Item
             $conn = Conexao::conectar();
 
             $req = $conn->prepare($query);
-            $req->execute(array('id' => $this->id_produto, 'descricao' => $this->descricao, 'id_categoria' => $this->id_categoria, 'transacao'=> $this->transcao));
+            $req->execute(array('id' => $this->id_produto, 'descricao' => $this->descricao, 'id_categoria' => $this->id_categoria, 'transacao' => $this->transcao));
 
             $conn = null;
             return true;
@@ -110,6 +110,29 @@ class Item
                 $conn = null;
                 return false;
             }
+        }
+    }
+
+    public static function listar_itens_cat(int $id_categoria)
+    {
+
+        try {
+
+            $query = 'SELECT * FROM itens WHERE id_categoria = :id_categoria;;';
+            $conn = Conexao::conectar();
+
+            $req = $conn->prepare($query);
+            $req->execute(['id_categoria'=> $id_categoria]);
+
+            $res = $req->fetchAll();
+            $conn = null;
+
+            return $res;
+        } catch (PDOException $err) {
+
+            $conn = null;
+
+            return false;
         }
     }
 }

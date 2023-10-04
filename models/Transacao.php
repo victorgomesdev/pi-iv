@@ -64,7 +64,7 @@ class Transacao
 
                 $req = $conn->prepare($query);
 
-                $req->execute(['tipo'=> $tipo]);
+                $req->execute(['tipo' => $tipo]);
 
                 $res = $req->fetchAll();
 
@@ -74,6 +74,25 @@ class Transacao
                 $conn = null;
                 return false;
             }
+        }
+    }
+
+    public static function obter_dados(int $id_transacao)
+    {
+
+        try {
+
+            $query = 'SELECT * FROM transacoes WHERE id_transacao = :id_transacao;';
+            $conn = Conexao::conectar();
+
+            $req = $conn->prepare($query);
+            $res = $req->execute(['id_transacao' => $id_transacao]);
+
+            $conn = null;
+            return $res;
+        } catch (PDOException $err) {
+            $conn = null;
+            return false;
         }
     }
 }
