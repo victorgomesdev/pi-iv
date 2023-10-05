@@ -68,7 +68,7 @@ class Item
         }
     }
 
-    public static function listar_item(int $id = null)
+    public static function buscar_item(int $id = null)
     {
 
         if ($id == null) {
@@ -113,7 +113,7 @@ class Item
         }
     }
 
-    public static function listar_itens_cat(int $id_categoria)
+    public static function listar_itens(int $id_categoria)
     {
 
         try {
