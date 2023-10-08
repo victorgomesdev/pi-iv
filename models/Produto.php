@@ -68,7 +68,7 @@ class Produto
         }
     }
 
-    public static function buscar_item(int $codigo = null)
+    public static function buscar_produto(int $codigo = null)
     {
 
         if ($codigo == null) {

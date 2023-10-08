@@ -8,4 +8,4 @@ spl_autoload_register(function ($controller) {
 });
 
 
-ProdutosController::excluir(3);
+Estoque::cadastar_categoria('anestésicos');
