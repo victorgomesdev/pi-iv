@@ -3,9 +3,8 @@
 class Transacao
 {
 
-    public function __construct(private int $id, private int $tipo, private string $data, private int $usuario, private int $clinica)
+    public function __construct(private int $tipo, private string $data, private int $usuario, private int $clinica)
     {
-        $this->id = $id;
         $this->tipo = $tipo;
         $this->data = $data;
         $this->usuario = $usuario;
@@ -16,12 +15,12 @@ class Transacao
     {
         try {
 
-            $query = 'INSERT INTO transacoes(id_transacao, id_tipo_tran, data_tran, id_usuario, id_clinica) VALUES (:id, :tipo, :data_tran, :usuario, :clinica);';
+            $query = 'INSERT INTO transacoes(id_tipo_tran, data_tran, id_usuario, id_clinica) VALUES (:tipo, :data_tran, :usuario, :clinica);';
             $conn = Conexao::conectar();
 
             $req = $conn->prepare($query);
 
-            $req->execute(['id' => $this->id, 'tipo' => $this->tipo, 'data_tran' => $this->data, 'usuario' => $this->usuario, 'clinica' => $this->clinica]);
+            $req->execute(['tipo' => $this->tipo, 'data_tran' => $this->data, 'usuario' => $this->usuario, 'clinica' => $this->clinica]);
 
             $conn = null;
             return true;

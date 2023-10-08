@@ -1,8 +1,6 @@
 <?php
 
-
-
-include 'models/Conexao.php';
+include 'providers/Conexao.php';
 
 class Produto
 {
