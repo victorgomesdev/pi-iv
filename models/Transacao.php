@@ -1,9 +1,5 @@
 <?php
 
-namespace Models;
-
-use PDOException;
-
 class Transacao
 {
 

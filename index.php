@@ -1,6 +1,11 @@
 <?php
 
-use Models\Conexao;
+
+spl_autoload_register(function ($controller) {
+    $class = __DIR__ . "/controllers/$controller.php";
+
+    include $class;
+});
 
 
-?>
+ProdutosController::excluir(3);
