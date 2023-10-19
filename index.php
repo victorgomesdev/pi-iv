@@ -7,5 +7,3 @@ spl_autoload_register(function ($controller) {
     include $class;
 });
 
-
-Estoque::cadastar_categoria('anestésicos');

@@ -1,8 +1,6 @@
 <?php
 
-namespace Models;
-
-use PDOException;
+include 'providers/Conexao.php';
 
 class Entidade
 {
