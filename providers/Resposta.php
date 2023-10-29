@@ -1,6 +1,6 @@
 <?php
 
-
+namespace Providers;
 class Resposta
 {
 
@@ -10,5 +10,6 @@ class Resposta
         http_response_code($status);
         header('Content-Type: application/json');
         echo json_encode($corpo_resposta);
+        exit;
     }
 }

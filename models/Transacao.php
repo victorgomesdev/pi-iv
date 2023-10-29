@@ -1,5 +1,8 @@
 <?php
 
+namespace models;
+use Providers\Conexao;
+use PDOException;
 class Transacao
 {
 

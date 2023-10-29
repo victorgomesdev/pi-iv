@@ -1,7 +1,11 @@
 <?php
 
-include 'providers/Resposta.php';
-include 'models/Produto.php';
+namespace Controllers;
+
+use Providers\Resposta;
+use Models\Produto;
+use Providers\Conexao;
+use PDOException;
 
 class Estoque
 {

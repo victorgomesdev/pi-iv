@@ -1,6 +1,9 @@
 <?php
 
-include 'providers/Conexao.php';
+namespace Models;
+
+use Providers\Conexao;
+use PDOException;
 
 class Produto
 {

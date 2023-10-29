@@ -1,9 +1,7 @@
 <?php
 
+use Models\Entidade;
+use Controllers\Entidades;
 
-spl_autoload_register(function ($controller) {
-    $class = __DIR__ . "/controllers/$controller.php";
-
-    include $class;
-});
+include 'autoload.php';
 

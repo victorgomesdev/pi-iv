@@ -1,6 +1,8 @@
 <?php
 
+namespace Providers;
 
+use PDO;
 class Conexao
 {
 
