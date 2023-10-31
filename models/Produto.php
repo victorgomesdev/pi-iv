@@ -4,6 +4,7 @@ namespace Models;
 
 use Providers\Conexao;
 use PDOException;
+use Providers\Resposta;
 
 class Produto
 {
@@ -132,6 +133,40 @@ class Produto
 
             $conn = null;
             return $err->getCode();
+        }
+    }
+
+    public static function baixar(int $codigo, int $quantidade){
+        try{
+
+            $query = 'UPDATE produtos SET quantidade = quantidade - :quantidade WHERE codigo = :codigo;';
+            $conn = Conexao::conectar();
+
+            $req = $conn->prepare($query);
+            $req->execute(['quantidade'=> $quantidade, 'codigo'=> $codigo]);
+
+            $conn = null;
+            Resposta::enviar(200, ['']);
+        }catch(PDOException $err){
+
+            $conn = null;
+        }
+    }
+
+    public static function adicionar(int $quantidade, int $codigo){
+        try{
+
+            $query = 'UPDATE produtos SET quantidade = quantidade + :quantidade WHERE codigo = :codigo;';
+            $conn = Conexao::conectar();
+
+            $req = $conn->prepare($query);
+            $req->execute(['quantidade'=> $quantidade, 'codigo'=> $codigo]);
+
+            $conn = null;
+            Resposta::enviar(200, ['']);
+        }catch(PDOException $err){
+
+            $conn = null;
         }
     }
 }

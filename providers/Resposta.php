@@ -4,7 +4,7 @@ namespace Providers;
 class Resposta
 {
 
-    public static function enviar(int $status, array $corpo_resposta): void
+    public static function enviar(int $status, ?array $corpo_resposta): void
     {
 
         http_response_code($status);
