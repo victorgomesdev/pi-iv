@@ -1,11 +1,8 @@
 <?php
 
 namespace Controllers;
-
-use Providers\Resposta;
 use Models\Produto;
-use Providers\Conexao;
-use PDOException;
+use Providers\Resposta;
 
 class Estoque
 {
@@ -33,27 +30,15 @@ class Estoque
         }
     }
 
-    public static function buscar(int $codigo = null)
+    public static function buscar(int $codigo = null):array
     {
 
         $lista = Produto::buscar_produto($codigo);
 
         if (count($lista) == 0) {
-            Resposta::enviar(200, ['message' => '<p>Produto não encontrado, verifique o código.</p>']);
+            return [];
         } else {
-            Resposta::enviar(200, $lista);
-        }
-    }
-
-    public static function listar(int $codigo)
-    {
-
-        $lista = Produto::listar_produtos($codigo);
-
-        if (count($lista) == 0) {
-            Resposta::enviar(200, ['message' => '<p>Categoria não encontrada, verifique o código.</p>']);
-        } else {
-            Resposta::enviar(200, $lista);
+            return $lista;
         }
     }
 
@@ -67,67 +52,4 @@ class Estoque
         }
     }
 
-    public static function cadastar_categoria(string $nome)
-    {
-
-        try {
-
-            $query = 'INSERT INTO categoria_produto(descricao) VALUES(:nome);';
-            $conn = Conexao::conectar();
-
-            $req = $conn->prepare($query);
-
-            $req->execute(['nome' => $nome]);
-
-            $conn = null;
-
-            Resposta::enviar(200, ['message' => '<p>Categoria cadastrada</p>']);
-        } catch (PDOException $err) {
-
-            $conn = null;
-
-            $err->getCode() == 23000 ? Resposta::enviar(200, ['message' => '<p>Categoria já cadastrada</p>']) : Resposta::enviar(200, []);
-        }
-    }
-
-    public static function remover_categoria(string $nome)
-    {
-
-        try {
-
-            $query = 'DELETE FROM categoria_produto WHERE descricao = :nome';
-            $conn = Conexao::conectar();
-
-            $req = $conn->prepare($query);
-            $req->execute(['nome' => $nome]);
-
-            $conn = null;
-            return true;
-        } catch (PDOException $err) {
-
-            $conn = null;
-
-            return $err->getCode();
-        }
-    }
-
-    public static function listar_categorias()
-    {
-        try {
-
-            $query = 'SELECT * FROM categoria_produto;';
-            $conn = Conexao::conectar();
-
-            $req = $conn->prepare($query);
-            $req->execute();
-
-            $conn = null;
-            return $req->fetchAll();
-        } catch (PDOException $err) {
-
-            $conn = null;
-
-            return $err->getCode();
-        }
-    }
 }

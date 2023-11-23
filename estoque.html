@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estoque</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <span>Estoque</span>
+  </header>
+  <main>
+    <div class="page-title"></div>
+    <div class="content">
+      <section>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Valor unitário</th>
+              <th>Quantidade</th>
+              <th>Opções</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+</body>
+<!--
+  <i class="bx bx-x"></i>
+-->
+<script>
+  (
+    async function () {
+      const tbody = document.getElementById('tbody')
+      await fetch('http://localhost/pi-iv/')
+        .then(r => {
+          r.json()
+            .then(el => {
+              el.forEach(e => {
+                tbody.innerHTML += `
+                <tr>
+              <td>
+                <div class="product">
+                  <div class="info">
+                    <div class="name">${e.nome}</div>
+                    <div>Código: ${e.codigo}</div>
+                    <div class="category"></div>
+                  </div>
+                </div>
+              </td>
+              <td id="v${e.codigo}">R$${e.valor_unitario}</td>
+              <td>
+                <div class="qty">
+                  <span id="${e.codigo}">${e.quantidade}</span>
+                </div>
+              </td>
+              <td>
+                <div class="options">
+                  <button class="remove sum" id="sum${e.codigo}" onclick="sum(${e.codigo})">
+                    <p class="desc">Agrupar</p>
+                  </button>
+                  <button class="remove sub" id="sub${e.codigo}" onclick="sub(${e.codigo})">
+                    <p class="desc">Baixar</p>
+                  </button>
+                  <button class="remove edit" id="edit${e.codigo}" onclick="edit(${e.codigo})">
+                    <p class="desc">Editar</p>
+                  </button>
+                </div>
+              </td>
+            </tr>
+                `
+              })
+            })
+        })
+    }
+  )()
+
+  async function sum(id) {
+
+    if (window.confirm('Deseja agrupar o item?')) {
+      const f = new FormData()
+      f.append('codigo', id)
+      f.append('opt', 'sum')
+      await fetch('http://localhost/pi-iv/', {
+        method: 'POST',
+        body: f
+      })
+        .then(r => r.json()
+          .then(() => {
+            let soma = document.getElementById(id)
+            soma.innerText = Number(soma.innerText) + 1
+          }))
+    }
+  }
+
+  async function sub(id) {
+
+    const sub = document.getElementById(id)
+    const valor = document.getElementById('v'+id).innerText.split('$')[1]
+    if (Number(sub.innerText) == 0) {
+      alert('Produto com estoque zerado!')
+
+    } else {
+      if (window.confirm('Deseja baixar o item para consumo?')) {
+        const f = new FormData()
+        f.append('codigo', id)
+        f.append('opt', 'sub')
+        f.append('val', valor)
+        await fetch('http://localhost/pi-iv/', {
+          method: 'POST',
+          body: f
+        }).then(r => r.json()
+          .then(() => {
+            sub.innerText = Number(sub.innerText) - 1
+            alert('Produto baixado')
+          }))
+      }
+    }
+
+  }
+
+  function edit(id){
+    window.location.href = `http://localhost/pi-iv/?edit=${id}`
+  }
+</script>
+
+</html>
